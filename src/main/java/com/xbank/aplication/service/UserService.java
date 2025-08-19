@@ -17,7 +17,7 @@ public class UserService {
 		return userRepository.existsByEmail(email);
 	}
 	
-	public boolean existsById(String id) {
+	public boolean existsById(Long id) {
 		return userRepository.existsById(id);
 	}
 	
@@ -25,7 +25,7 @@ public class UserService {
 		return userRepository.findByCpf(cpf).isPresent();
 	}
 	
-	public void deleteById(String id) {
+	public void deleteById(Long id) {
 		userRepository.deleteById(id);
 	}
 	
@@ -37,7 +37,7 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 	
-	public User findById(String id) {
+	public User findById(Long id) {
 		return userRepository.findById(id).orElse(null);
 	}
 	
