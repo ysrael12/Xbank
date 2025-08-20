@@ -11,15 +11,15 @@ import lombok.Data;
 public class Accounts implements AccountDetails {
 	@Id
 	protected Long id;
-	protected User owner; 
+	protected User owner;
 	protected String accountNumber;
 	protected String agency;
 	protected String bankName;
 	
-	// Balance 
+	// Balance
 	protected BigDecimal balance = BigDecimal.ZERO;
 	
-	// Credit Cards 
+	// Credit Cards
 	List<CreditCards> creditCards;
 	
 	
@@ -68,6 +68,7 @@ public class Accounts implements AccountDetails {
 		}
 	}
 	
+	
 	@Override
 	public void withdraw(BigDecimal amount) {
 		if (amount.compareTo(BigDecimal.ZERO) > 0 && this.balance.compareTo(amount) >= 0) {
@@ -86,5 +87,9 @@ public class Accounts implements AccountDetails {
 	@Override
 	public List<CreditCards> getCreditCards() {
 		return this.creditCards;
+	}
+
+	public void setCreditCards(Object creditCard) {
+		throw new UnsupportedOperationException("Unimplemented method 'setCreditCards'");
 	}
 }
