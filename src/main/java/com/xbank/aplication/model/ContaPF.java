@@ -1,11 +1,9 @@
 package com.xbank.aplication.model;
 import lombok.Data;
 import java.util.List;
-
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import jakarta.persistence.Entity;
 @Data
-@Document(collection = "conta_pf")
+@Entity
 public class ContaPF extends Accounts implements AccountDetails {
 	
 	private String cpf;

@@ -2,13 +2,18 @@ package com.xbank.aplication.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Data;
 
 @Data
-@Document(collection = "credit_cards")
+@Entity
 public class CreditCards implements CreditCardDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 	
 	private Accounts ownerAccount;
 	private String cardNumber;

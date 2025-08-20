@@ -2,10 +2,10 @@ package com.xbank.aplication.model;
 import lombok.Data;
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
 
 @Data
-@Document(collection = "conta_pj")
+@Entity
 public class ContaPJ extends Accounts implements AccountDetails {
 	
 	private String cnpj;

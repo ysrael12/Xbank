@@ -18,18 +18,18 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     public Accounts createAccount(Accounts account) {
-        return accountRepository.save(account);
+        return accountRepository.create(account);
     }
 
-    public Accounts findById(Long id) {
+    public Accounts findById(String id) {
         return accountRepository.findById(id).orElse(null);
     }
 
-    public boolean existsById(Long id) {
+    public boolean existsById(String id) {
         return accountRepository.existsById(id);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         accountRepository.deleteById(id);
     }
 
@@ -37,34 +37,34 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    public Accounts deposit(Long id, BigDecimal amount) {
+    public Accounts deposit(String id, BigDecimal amount) {
         Accounts account = findById(id);
         if (account != null) {
             account.deposit(amount);
-            return accountRepository.save(account);
+            return accountRepository.create(account);
         }
         return null;
     }
 
-    public Accounts withdraw(Long id, BigDecimal amount) {
+    public Accounts withdraw(String id, BigDecimal amount) {
         Accounts account = findById(id);
         if (account != null) {
             account.withdraw(amount);
-            return accountRepository.save(account);
+            return accountRepository.create(account);
         }
         return null;
     }
 
-    public List<CreditCards> getCreditCards(Long id) {
+    public List<CreditCards> getCreditCards(String id) {
         Accounts account = findById(id);
         return account != null ? account.getCreditCards() : null;
     }
 
-    public Accounts addCreditCard(Long id, CreditCards card) {
+    public Accounts addCreditCard(String id, CreditCards card) {
         Accounts account = findById(id);
         if (account != null) {
             account.setCreditCards(card);
-            return accountRepository.save(account);
+            return accountRepository.create(account);
         }
         return null;
     }

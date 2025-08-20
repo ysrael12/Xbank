@@ -1,15 +1,22 @@
 package com.xbank.aplication.model;
 import java.math.BigDecimal;
-import org.springframework.data.annotation.Id;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.List;
-import java.util.UUID;
 import java.util.Random;
 
-import lombok.Data;
-
-@Data
+import lombok.Getter;
+import lombok.Setter;
+@Entity
+@Getter
+@Setter
 public class Accounts implements AccountDetails {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 	protected User owner;
 	protected String accountNumber;
@@ -24,21 +31,15 @@ public class Accounts implements AccountDetails {
 	
 	
 	public Accounts() {
-		setId();
 	}
 	
 	public Accounts(User owner, String accountNumber, String agency, String bankName, CreditCards creditCard) {
-		setId();
 		setCreditCards(creditCard);
 		generateAccountNumber(accountNumber);
 		generateAgency(agency);
 	}
 	
 	
-	@Override
-	public void setId() {
-		this.id = UUID.randomUUID().toString().hashCode() & Long.MAX_VALUE;
-	}
 
 	@Override
 	public void setCreditCards(CreditCards creditCard) {
@@ -92,4 +93,15 @@ public class Accounts implements AccountDetails {
 	public void setCreditCards(Object creditCard) {
 		throw new UnsupportedOperationException("Unimplemented method 'setCreditCards'");
 	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+		
+	}
+
 }

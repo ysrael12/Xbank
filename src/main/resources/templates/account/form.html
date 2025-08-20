@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account Form</title>
+</head>
+<body>
+    <h1 th:text="${account.id} == null ? 'Create Account' : 'Edit Account'"></h1>
+    <form th:action="${account.id} == null ? @{/accounts} : @{/accounts/update}" th:object="${account}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Owner:</label>
+        <input type="text" th:field="*{owner}" required/><br/>
+        <label>Account Number:</label>
+        <input type="text" th:field="*{accountNumber}" required/><br/>
+        <label>Agency:</label>
+        <input type="text" th:field="*{agency}" required/><br/>
+        <label>Bank Name:</label>
+        <input type="text" th:field="*{bankName}" required/><br/>
+        <label>Balance:</label>
+        <input type="number" th:field="*{balance}" step="0.01" required/><br/>
+        <button type="submit">Save</button>
+    </form>
+    <a th:href="@{/accounts}">Back to list</a>
+</body>
+</html>

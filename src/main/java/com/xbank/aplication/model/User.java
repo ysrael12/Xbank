@@ -1,15 +1,22 @@
 package com.xbank.aplication.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
 import java.util.List;
 
+
 // Usando o Padrão Criacional: Factory method
-@Document(collection = "users")
+@Entity
 public class User implements UserDetails {
 	
-	@Id 
-	private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	
 	private String name;
 	private String email;
@@ -30,7 +37,7 @@ public class User implements UserDetails {
 		setCPF(cpf);
 	}
 
-	public User(String id, String name, String email, String password, String phone, String cpf) {
+	public User(Long id, String name, String email, String password, String phone, String cpf) {
 		this.id = id;
 		setName(name);
 		setEmail(email);
@@ -49,12 +56,12 @@ public class User implements UserDetails {
 	}
 	
 	@Override
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
 	@Override
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -123,4 +130,6 @@ public class User implements UserDetails {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phone=" + phone
 				+ ", cpf=" + cpf + "]";
 	}
+
+	
 }

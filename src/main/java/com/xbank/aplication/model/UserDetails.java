@@ -4,8 +4,8 @@ import java.util.List;
 
 // Usando o Padrão Criacional: Factory method 
 public interface UserDetails {
-	String getId();
-	void setId(String id);
+	Long getId();
+	void setId(Long id);
 	
 	String getName();
 	void setName(String name);

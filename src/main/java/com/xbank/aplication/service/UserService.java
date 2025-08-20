@@ -25,20 +25,20 @@ public class UserService {
 		return userRepository.findByCpf(cpf).isPresent();
 	}
 	
-	public void deleteById(Long id) {
+	public void deleteById(String id) {
 		userRepository.deleteById(id);
 	}
 	
 	public User createUser(User user) {
-		return userRepository.save(user);
+		return userRepository.createUser(user);
 	}
 	
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 	
-	public User findById(Long id) {
-		return userRepository.findById(id).orElse(null);
+	public User findById(String id) {
+		return userRepository.findById(id);
 	}
 	
 	public User findByCpf(String cpf) {
@@ -46,15 +46,7 @@ public class UserService {
 	}
 	
 	public User updateUser(User user) {
-		return userRepository.findById(user.getId())
-				.map(existingUser -> {
-					existingUser.setName(user.getName());
-					existingUser.setEmail(user.getEmail());
-					existingUser.setPassword(user.getPassword());
-					existingUser.setPhone(user.getPhone());
-					return userRepository.save(existingUser);
-				})
-				.orElse(null);
+		return userRepository.createUser(user);
 	}
 	
 	public List<User> findAll() {

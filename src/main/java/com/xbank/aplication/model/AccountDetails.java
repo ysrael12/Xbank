@@ -3,7 +3,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountDetails {
-	void setId();
 	void generateAccountNumber(String accountNumber);
 	void generateAgency(String agency);;
 	List<CreditCards> getCreditCards();
@@ -11,5 +10,6 @@ public interface AccountDetails {
 	
 	void deposit(BigDecimal amount);
 	void withdraw(BigDecimal amount);
+	void setId(Long id);
 	
 }
