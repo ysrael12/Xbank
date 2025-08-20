@@ -1,10 +1,15 @@
 package com.xbank.aplication.model;
 import java.math.BigDecimal;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 import java.util.List;
 import java.util.Random;
@@ -18,6 +23,9 @@ public class Accounts implements AccountDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	protected User owner;
 	protected String accountNumber;
 	protected String agency;
@@ -27,6 +35,8 @@ public class Accounts implements AccountDetails {
 	protected BigDecimal balance = BigDecimal.ZERO;
 	
 	// Credit Cards
+	// One to Many
+	@OneToMany(mappedBy = "ownerAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	List<CreditCards> creditCards;
 	
 	
