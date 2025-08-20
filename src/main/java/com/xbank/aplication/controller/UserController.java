@@ -2,6 +2,9 @@ package com.xbank.aplication.controller;
 
 import com.xbank.aplication.model.User;
 import com.xbank.aplication.service.UserService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +33,8 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable String id, Model model) {
-        User user = userService.findById(id);
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Optional<User> user = userService.findById(id);
         if (user == null) {
             return "redirect:/users";
         }
@@ -46,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable String id) {
+    public String deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return "redirect:/users";
     }

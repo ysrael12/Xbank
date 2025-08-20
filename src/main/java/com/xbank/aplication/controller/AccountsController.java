@@ -27,7 +27,7 @@ public class AccountsController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String showEditForm(@PathVariable Long id, Model model) {
         Accounts account = accountService.findById(id);
         if (account == null) {
             return "redirect:/accounts";
@@ -43,7 +43,7 @@ public class AccountsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAccount(@PathVariable String id) {
+    public String deleteAccount(@PathVariable Long id) {
         accountService.deleteById(id);
         return "redirect:/accounts";
     }

@@ -1,6 +1,6 @@
 package com.xbank.aplication.model;
 import java.math.BigDecimal;
-
+import java.util.ArrayList; // Import ArrayList
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +16,7 @@ import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Getter
 @Setter
@@ -35,24 +36,28 @@ public class Accounts implements AccountDetails {
 	protected BigDecimal balance = BigDecimal.ZERO;
 	
 	// Credit Cards
-	// One to Many
+	// Initialize the list here
 	@OneToMany(mappedBy = "ownerAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<CreditCards> creditCards;
+	List<CreditCards> creditCards = new ArrayList<>();
 	
 	
 	public Accounts() {
+		// Initialize list in no-arg constructor as well
+		this.creditCards = new ArrayList<>();
 	}
 	
 	public Accounts(User owner, String accountNumber, String agency, String bankName, CreditCards creditCard) {
+		// No need to initialize here if it's done in the declaration or no-arg constructor
 		setCreditCards(creditCard);
 		generateAccountNumber(accountNumber);
 		generateAgency(agency);
 	}
 	
-	
-
 	@Override
 	public void setCreditCards(CreditCards creditCard) {
+		if (this.creditCards == null) {
+			this.creditCards = new ArrayList<>();
+		}
 		this.creditCards.add(creditCard);
 	}
 	
@@ -100,6 +105,8 @@ public class Accounts implements AccountDetails {
 		return this.creditCards;
 	}
 
+	// This method looks incorrect, it takes an Object and throws an exception.
+	// You should probably remove it.
 	public void setCreditCards(Object creditCard) {
 		throw new UnsupportedOperationException("Unimplemented method 'setCreditCards'");
 	}
@@ -113,5 +120,4 @@ public class Accounts implements AccountDetails {
 		this.id = id;
 		
 	}
-
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import lombok.Data;
 
 @Data
@@ -15,6 +17,12 @@ public class CreditCards implements CreditCardDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	// Correctly define the ManyToOne relationship to the Accounts entity.
+	// This tells Hibernate that many credit cards belong to one account.
+	@ManyToOne
+	// The @JoinColumn annotation specifies the foreign key column in this table.
+	// It will create a column named 'accounts_id' that holds the primary key of the Accounts table.
+	@JoinColumn(name = "accounts_id")
 	private Accounts ownerAccount;
 	private String cardNumber;
 	private String cardHolderName;

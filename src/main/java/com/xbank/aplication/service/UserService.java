@@ -1,5 +1,6 @@
 package com.xbank.aplication.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,10 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	public boolean existsByEmail(String email) {
-		return userRepository.existsByEmail(email);
+		if(userRepository.findByEmail(email) != null) {
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean existsById(Long id) {
@@ -25,19 +29,19 @@ public class UserService {
 		return userRepository.findByCpf(cpf).isPresent();
 	}
 	
-	public void deleteById(String id) {
+	public void deleteById(Long id) {
 		userRepository.deleteById(id);
 	}
 	
 	public User createUser(User user) {
-		return userRepository.createUser(user);
+		return userRepository.save(user);
 	}
 	
-	public User findByEmail(String email) {
+	public Optional<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 	
-	public User findById(String id) {
+	public Optional<User> findById(Long id) {
 		return userRepository.findById(id);
 	}
 	
@@ -46,7 +50,7 @@ public class UserService {
 	}
 	
 	public User updateUser(User user) {
-		return userRepository.createUser(user);
+		return userRepository.save(user);
 	}
 	
 	public List<User> findAll() {
