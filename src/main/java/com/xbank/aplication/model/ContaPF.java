@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 @DiscriminatorValue("PF")
 public class ContaPF extends Accounts {
     private String cpfTitular;
+    private String nomeCompleto;
 
     public String getCpfTitular() {
         return cpfTitular;
@@ -25,4 +26,14 @@ public class ContaPF extends Accounts {
         this.getCreditCards().add(creditCard);
         creditCard.setAccount(this);
     }
+    @Override
+    public String toString() {
+    return "ContaPF{" +
+            "cpf='" + cpfTitular + '\'' +
+            ", nomeCompleto='" + nomeCompleto + '\'' +
+            ", id=" + getId() +
+            ", balance=" + getBalance() +
+            '}';
+}
+
 }
