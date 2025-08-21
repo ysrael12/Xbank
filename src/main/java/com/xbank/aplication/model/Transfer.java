@@ -14,16 +14,16 @@ public class Transfer implements TransferDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "source_account_id")
-    private Accounts sourceAccount;
+    protected Accounts sourceAccount;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "destination_account_id")
-    private Accounts destinationAccount;
+	protected Accounts destinationAccount;
 
-    private BigDecimal amount;
-    private Date transferDate;
+    protected BigDecimal amount;
+    protected Date transferDate;
 
     public Transfer() {
         this.transferDate = new Date();

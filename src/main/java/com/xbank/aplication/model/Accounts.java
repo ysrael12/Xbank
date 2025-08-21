@@ -28,9 +28,9 @@ public class Accounts implements AccountDetails {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	protected User owner;
-	protected String accountNumber;
-	protected String agency;
-	protected String bankName;
+	public String accountNumber;
+	public String agency;
+	public String bankName;
 	
 	// Balance
 	protected BigDecimal balance = BigDecimal.ZERO;
@@ -49,8 +49,8 @@ public class Accounts implements AccountDetails {
 	public Accounts(User owner, String accountNumber, String agency, String bankName, CreditCards creditCard) {
 		// No need to initialize here if it's done in the declaration or no-arg constructor
 		setCreditCards(creditCard);
-		generateAccountNumber(accountNumber);
-		generateAgency(agency);
+		generateAccountNumber();
+		generateAgency();
 	}
 	
 	@Override
@@ -61,15 +61,19 @@ public class Accounts implements AccountDetails {
 		this.creditCards.add(creditCard);
 	}
 	
+	public void getAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	
 	@Override
-	public void generateAccountNumber(String accountNumber) {
+	public void generateAccountNumber() {
 		Random random = new Random();
 		int number = random.nextInt(100000-10000) + 10000;
 		this.accountNumber = String.valueOf(number);
 	}
 	
 	@Override
-	public void generateAgency(String agency) {
+	public void generateAgency() {
 		Random random = new Random();
 		int number = random.nextInt(1000-100) + 100;
 		this.agency = String.valueOf(number);
@@ -128,6 +132,14 @@ public class Accounts implements AccountDetails {
 	
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	
+	public User getOwner() {
+		return this.owner;
+	}
+	
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 

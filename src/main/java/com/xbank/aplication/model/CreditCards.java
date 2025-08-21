@@ -8,9 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+
+@Getter
+@Setter
 @Entity
 public class CreditCards implements CreditCardDetails {
     @Id
@@ -95,4 +98,54 @@ public class CreditCards implements CreditCardDetails {
 				+ ", creditLimit=" + creditLimit + ", currentBalance=" + currentBalance + ", availableCredit="
 				+ availableCredit + ", password=" + password + ", isActive=" + isActive + "]";
 	}
+
+	public void setCardNumber(String cardNumber2) {
+		this.cardNumber = cardNumber2;
+	}
+	
+	public void setCardHolderName(String cardHolderName2) {
+		this.cardHolderName = cardHolderName2;
+	}
+	
+
+	public void setExpirationDate(Date expirationDate2) {
+		this.expirationDate = expirationDate2;
+	}
+	
+	public void setCvv(String cvv2) {
+		this.cvv = cvv2;
+	}
+	
+	public void setCardType(String cardType2) {
+		this.cardType = cardType2;
+	}
+	
+	public void setCreditLimit(BigDecimal creditLimit2) {
+		this.creditLimit = creditLimit2;
+	}
+	
+	public void setCurrentBalance(BigDecimal currentBalance2) {
+		this.currentBalance = currentBalance2;
+	}
+	
+	public void setAvailableCredit(BigDecimal availableCredit2) {
+		this.availableCredit = availableCredit2;
+	}
+	
+	public void setPassword(String password2) {
+		this.password = password2;
+	}
+	
+	public void setActive(boolean isActive2) {
+		this.isActive = isActive2;
+	}
+	
+	public void setAccount(Accounts account) {
+		this.ownerAccount = account;
+	}
+
+	
+
+	
 }
+

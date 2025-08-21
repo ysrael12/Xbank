@@ -8,7 +8,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 // Usando o Padrão Criacional: Factory method
@@ -137,6 +137,18 @@ public class User implements UserDetails {
 	public boolean isEmpty() {
 		return this.id == null && this.name == null && this.email == null && this.password == null && this.phone == null && this.cpf == null;
 	}
+
+	public void setConta(Accounts conta) {
+		
+		if (this.accounts == null) {
+			this.accounts = new ArrayList<>();
+		}
+		this.accounts.add(conta);
+		conta.setOwner(this);
+		
+	}
+
+	
 
 	
 	
