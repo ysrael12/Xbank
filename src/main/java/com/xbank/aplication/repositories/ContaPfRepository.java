@@ -5,5 +5,7 @@ import com.xbank.aplication.model.ContaPF;
 
 public interface ContaPfRepository extends JpaRepository<ContaPF, Long> {
 
+    Iterable<ContaPF> findByCpf(String cpf);
+
 
 }

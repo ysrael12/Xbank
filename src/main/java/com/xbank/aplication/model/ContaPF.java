@@ -1,5 +1,7 @@
 package com.xbank.aplication.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +17,12 @@ public class ContaPF extends Accounts {
         this.cpfTitular = cpfTitular;
     }
 
-
-
-	
+    public void addCreditCard(String cardNumber, String cardHolderName, BigDecimal limit) {
+        CreditCards creditCard = new CreditCards();
+        creditCard.setCardNumber(cardNumber);
+        creditCard.setCardHolderName(cardHolderName);
+        creditCard.setCreditLimit(limit);
+        this.getCreditCards().add(creditCard);
+        creditCard.setAccount(this);
+    }
 }
