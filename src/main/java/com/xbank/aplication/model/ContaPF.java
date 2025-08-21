@@ -1,36 +1,19 @@
 package com.xbank.aplication.model;
-import lombok.Data;
-import java.util.List;
-import jakarta.persistence.Entity;
-@Data
+
+import jakarta.persistence.*;
+
 @Entity
-public class ContaPF extends Accounts implements AccountDetails {
-	
-	private String cpf;
-	
-	public ContaPF() {
-		
-	}
-	
-	public ContaPF(String cpf) {
-		this.cpf = cpf;
-	}
+@DiscriminatorValue("PF")
+public class ContaPF extends Accounts {
+    private String cpfTitular;
 
-	public ContaPF(User owner, String accountNumber, String agency, String bankName, CreditCards creditCard, String cpf) {
-		super(owner, accountNumber, agency, bankName, creditCard);
-		this.cpf = cpf;
-	}
+    public String getCpfTitular() {
+        return cpfTitular;
+    }
 
-	@Override
-	public List<CreditCards> getCreditCards() {
-		return this.getCreditCards();
-	}
-	
-	@Override
-	public String toString() {
-		return "ContaPF [cpf=" + this.cpf + ", getId()=" + this.id + ", getAccountNumber()=" + this.accountNumber
-				+ ", getAgency()=" + this.agency + ", getBankName()=" + this.bankName + ", getBalance()=" + this.balance
-				+ ", getOwner()=" + this.owner + ", getCreditCards()=" + this.creditCards+ "]";
-	}
+    public void setCpfTitular(String cpfTitular) {
+        this.cpfTitular = cpfTitular;
+    }
+
 	
 }

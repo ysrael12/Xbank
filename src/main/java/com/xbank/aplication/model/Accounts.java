@@ -120,4 +120,13 @@ public class Accounts implements AccountDetails {
 		this.id = id;
 		
 	}
+
+	public BigDecimal getBalance() {
+		return this.balance;
+
+	}
+	
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 }

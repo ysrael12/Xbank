@@ -1,41 +1,26 @@
 package com.xbank.aplication.model;
-import lombok.Data;
-import java.util.List;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-@Data
 @Entity
-public class ContaPJ extends Accounts implements AccountDetails {
-	
-	private String cnpj;
-	private String companyName;
-	
-	
-	public ContaPJ() {
-		
-	}
-	
-	public ContaPJ(String cnpj) {
-		this.cnpj = cnpj;
-	}
+@DiscriminatorValue("PJ")
+public class ContaPJ extends Accounts {
+    private String cnpjEmpresa;
+    private String nomeEmpresa;
 
-	public ContaPJ(User owner, String accountNumber, String agency, String bankName, CreditCards creditCard, String cnpj, String companyName) {
-		super(owner, accountNumber, agency, bankName, creditCard);
-		this.cnpj = cnpj;
-		this.companyName = companyName;
-	}
+    public String getCnpjEmpresa() {
+        return cnpjEmpresa;
+    }
 
-	@Override
-	public List<CreditCards> getCreditCards() {
-		return this.getCreditCards();
-	}
-	
-	@Override
-	public String toString() {
-		return "ContaPJ [cnpj=" + cnpj + ", getId()=" + this.id + ", getAccountNumber()=" + this.accountNumber
-				+ ", getAgency()=" + this.agency + ", getBankName()=" + this.bankName + ", getBalance()=" + this.balance
-				+ ", getOwner()=" + this.owner + ", getCreditCards()=" + this.creditCards+ "getCompanyName()=" + this.companyName + "]";
-	}
-	
+    public void setCnpjEmpresa(String cnpjEmpresa) {
+        this.cnpjEmpresa = cnpjEmpresa;
+    }
+
+    public String getNomeEmpresa() {
+        return nomeEmpresa;
+    }
+
+    public void setNomeEmpresa(String nomeEmpresa) {
+        this.nomeEmpresa = nomeEmpresa;
+    }
 }
