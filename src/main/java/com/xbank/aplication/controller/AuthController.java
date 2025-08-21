@@ -21,7 +21,14 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
+    		
         return "auth/login";
+    }
+    
+    @PostMapping("/login")
+    public String loginPost(String email, String password, Model model) {
+		//TODO implementar lógica de login
+		return "index";
     }
 
     @GetMapping("/register")
@@ -32,10 +39,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user, Model model) {
-        if (userService.existsByEmail(user.getEmail())) {
-            model.addAttribute("error", "Email já cadastrado!");
-            return "auth/register";
-        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createUser(user);
         return "redirect:/login";

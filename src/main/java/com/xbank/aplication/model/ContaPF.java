@@ -15,5 +15,7 @@ public class ContaPF extends Accounts {
         this.cpfTitular = cpfTitular;
     }
 
+
+
 	
 }

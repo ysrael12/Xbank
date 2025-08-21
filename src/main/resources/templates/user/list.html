@@ -25,6 +25,7 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.phone}"></td>
                 <td th:text="${user.cpf}"></td>
+				<td th:text="${user.password}"></td>
                 <td>
                     <a th:href="@{'/users/edit/' + ${user.id}}">Edit</a> |
                     <a th:href="@{'/users/delete/' + ${user.id}}" onclick="return confirm('Are you sure?');">Delete</a>

@@ -8,11 +8,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 
+
 import java.util.List;
 
-
 // Usando o Padrão Criacional: Factory method
-@Entity
+@Entity(name = "users")
 public class User implements UserDetails {
 	
 	@Id
@@ -133,6 +133,5 @@ public class User implements UserDetails {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phone=" + phone
 				+ ", cpf=" + cpf + "]";
 	}
-
 	
 }

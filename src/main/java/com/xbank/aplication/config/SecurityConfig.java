@@ -14,11 +14,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/","/users", "/login", "/register", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/users", true)
+                        .defaultSuccessUrl("/accounts", true)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
