@@ -3,6 +3,7 @@ package com.xbank.aplication.controller;
 import com.xbank.aplication.model.User;
 import com.xbank.aplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +18,8 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+  
     @GetMapping("/login")
     public String login() {
     		
@@ -27,8 +28,13 @@ public class AuthController {
     
     @PostMapping("/login")
     public String loginPost(String email, String password, Model model) {
-		//TODO implementar lógica de login
-		return "index";
+        var userOpt = userService.findByEmail(email);
+        if (userOpt.isEmpty() || !passwordEncoder.matches(password, userOpt.getPassword())) {
+            model.addAttribute("loginError", "Email or password invalid");
+            return "auth/login";
+        }
+        // Aqui você pode adicionar lógica de sessão se necessário
+        return "redirect:/index";
     }
 
     @GetMapping("/register")

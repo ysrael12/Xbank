@@ -31,7 +31,7 @@ public class AccountController {
     @PostMapping("/new/pf")
     public String createPF(@ModelAttribute ContaPF contaPF, Authentication authentication) {
         String email = authentication.getName();
-        User user = userService.findByEmail(email).orElse(null);
+        User user = userService.findByEmail(email);
         if (user == null) return "redirect:/login";
         contaPF.setOwner(user);
         accountRepository.save(contaPF);
@@ -47,7 +47,7 @@ public class AccountController {
     @PostMapping("/new/pj")
     public String createPJ(@ModelAttribute ContaPJ contaPJ, Authentication authentication) {
         String email = authentication.getName();
-        User user = userService.findByEmail(email).orElse(null);
+        User user = userService.findByEmail(email);
         if (user == null) return "redirect:/login";
         contaPJ.setOwner(user);
         accountRepository.save(contaPJ);

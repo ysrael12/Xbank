@@ -133,5 +133,11 @@ public class User implements UserDetails {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phone=" + phone
 				+ ", cpf=" + cpf + "]";
 	}
+
+	public boolean isEmpty() {
+		return this.id == null && this.name == null && this.email == null && this.password == null && this.phone == null && this.cpf == null;
+	}
+
+	
 	
 }
