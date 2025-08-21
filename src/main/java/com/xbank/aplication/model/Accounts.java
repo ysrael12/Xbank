@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Accounts implements AccountDetails {
+public abstract class Accounts implements AccountDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
@@ -61,8 +61,12 @@ public class Accounts implements AccountDetails {
 		this.creditCards.add(creditCard);
 	}
 	
-	public void getAccountNumber(String accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+	
+	public String getAccountNumber() {
+		return this.accountNumber;
 	}
 	
 	@Override
@@ -141,6 +145,22 @@ public class Accounts implements AccountDetails {
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
+	
+	// Este é o método que você precisa
+	public String getAgency() {
+	    return this.agency;
+	}
 
-
+	// O setter, se você precisar
+	public void setAgency(String agency) {
+	    this.agency = agency;
+	}
+	
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getBankName() {
+		return this.bankName;
+	}
+	
 }

@@ -14,12 +14,6 @@ public class AccountsController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/new")
-    public String showCreateForm(Model model) {
-        model.addAttribute("account", new Accounts());
-        return "account/form";
-    }
-
     @PostMapping
     public String createAccount(@ModelAttribute Accounts account) {
         accountService.createAccount(account);

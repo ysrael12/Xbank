@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class ContaPjController {
     ContaPjService contaPjService;
 
     @Autowired
-    UserService userService; // Injete o UserService para encontrar o proprietário
+    UserService userService;
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
@@ -34,12 +35,39 @@ public class ContaPjController {
 
     @PostMapping("/create")
     public String register(@ModelAttribute("contaPJ") ContaPJ conta, Principal principal) {
-        // Encontra o usuário logado pelo nome (email) do Principal
         User user = userService.findByEmail(principal.getName());
-        // Associa o usuário encontrado à conta antes de salvá-la
         contaPjService.createContaPj(conta, user);
-
         return "redirect:/login";
+    }
+    
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        ContaPJ contaPJ = contaPjService.findById(id);
+        if (contaPJ == null) {
+            return "redirect:/accounts";
+        }
+        model.addAttribute("contaPJ", contaPJ);
+        return "account/createContaPj";
+    }
+
+    @PostMapping("/update")
+    public String updateAccount(@ModelAttribute("contaPJ") ContaPJ conta, Principal principal) {
+    	User user = userService.findByEmail(principal.getName());
+        contaPjService.createContaPj(conta, user);
+        return "redirect:/accounts";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAccount(@PathVariable Long id) {
+        contaPjService.deleteById(id);
+        return "redirect:/accounts";
+    }
+
+    @GetMapping
+    public String listAccounts(Model model) {
+        model.addAttribute("accounts", contaPjService.findAll());
+        return "account/list";
     }
 
     @PostMapping("/deposit")
