@@ -18,4 +18,5 @@ public interface TransferDetails {
 
     Date getTransferDate();
     void setTransferDate(Date transferDate);
+    String getType();
 }

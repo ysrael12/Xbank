@@ -85,4 +85,8 @@ public class Transfer implements TransferDetails {
     public void setTransferDate(Date transferDate) {
         this.transferDate = transferDate;
     }
+    @Override
+    public String getType() {
+        return "GENERICO";
+    }
 }
