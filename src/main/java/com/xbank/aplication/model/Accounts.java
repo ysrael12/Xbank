@@ -114,11 +114,6 @@ public abstract class Accounts implements AccountDetails {
 		return this.creditCards;
 	}
 
-	// This method looks incorrect, it takes an Object and throws an exception.
-	// You should probably remove it.
-	public void setCreditCards(Object creditCard) {
-		throw new UnsupportedOperationException("Unimplemented method 'setCreditCards'");
-	}
 
 	public Long getId() {
 		return this.id;

@@ -70,10 +70,10 @@ public class ContaPfService {
         return contaPfRepository.findByCpf(cpf).iterator().hasNext();
     }
 
-    public ContaPF addCreditCard(Long id, String cardNumber, String cardHolderName, BigDecimal limit) {
+    public ContaPF addCreditCard(Long id, String cardHolderName, BigDecimal limit) {
         ContaPF contaPf = findById(id);
         if (contaPf != null) {
-            contaPf.addCreditCard(cardNumber, cardHolderName, limit);
+            contaPf.addCreditCard(cardHolderName, limit);
             return contaPfRepository.save(contaPf);
         }
         return null;

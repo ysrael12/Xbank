@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 public class ContaPF extends Accounts {
     protected String cpf;
     protected String nomeCompleto;
+    protected String tipo = "PJ";
 
     public void setNomeCompleto(String nomeCompleto){
         this.nomeCompleto = nomeCompleto;
@@ -34,9 +35,9 @@ public class ContaPF extends Accounts {
         this.cpf = cpf;
     }
 
-    public void addCreditCard(String cardNumber, String cardHolderName, BigDecimal limit) {
+    public void addCreditCard(String cardHolderName, BigDecimal limit) {
         CreditCards creditCard = new CreditCards();
-        creditCard.setCardNumber(cardNumber);
+        creditCard.setCardNumber();
         creditCard.setCardHolderName(cardHolderName);
         creditCard.setCreditLimit(limit);
         this.getCreditCards().add(creditCard);
@@ -44,8 +45,8 @@ public class ContaPF extends Accounts {
     }
 
     public String getTipo(){
-        return "PF";
-    }
+		return this.tipo;
+	}
 
     @Override
     public String toString() {
@@ -55,6 +56,6 @@ public class ContaPF extends Accounts {
             ", id=" + getId() +
             ", balance=" + getBalance() +
             '}';
-}
+    }
 
 }

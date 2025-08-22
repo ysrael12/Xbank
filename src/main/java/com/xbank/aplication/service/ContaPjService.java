@@ -73,10 +73,10 @@ public class ContaPjService {
 	}
 	
 	//add credit card to contaPJ
-	public ContaPJ addCreditCard(Long id, String cardNumber, String cardHolderName, BigDecimal limit) {
+	public ContaPJ addCreditCard(Long id, String cardHolderName, BigDecimal limit) {
 		ContaPJ contaPj = findById(id);
 		if (contaPj != null) {
-			contaPj.addCreditCard(cardNumber, cardHolderName, limit);
+			contaPj.addCreditCard(cardHolderName, limit);
 			return contaPjRepository.save(contaPj);
 		}
 		return null;

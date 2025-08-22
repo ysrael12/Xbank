@@ -2,13 +2,15 @@ package com.xbank.aplication.model;
 
 import java.math.BigDecimal;
 
+
 import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("PJ")
 public class ContaPJ extends Accounts {
-    private String cnpj;
-    private String nomeEmpresa;
+	protected String cnpj;
+    protected String nomeEmpresa;
+    protected String tipo = "PJ";
 
     public String getcnpj() {
         return cnpj;
@@ -26,9 +28,9 @@ public class ContaPJ extends Accounts {
         this.nomeEmpresa = nomeEmpresa;
     }
 
-	public void addCreditCard(String cardNumber, String cardHolderName, BigDecimal limit) {
+	public void addCreditCard(String cardHolderName, BigDecimal limit) {
 		CreditCards creditCard = new CreditCards();
-		creditCard.setCardNumber(cardNumber);
+		creditCard.setCardNumber();
 		creditCard.setCardHolderName(cardHolderName);
 		creditCard.setCreditLimit(limit);
 		this.getCreditCards().add(creditCard);
@@ -36,7 +38,7 @@ public class ContaPJ extends Accounts {
 	}
 
 	public String getTipo(){
-        return "PJ";
+        return this.tipo;
     }
 
 	@Override
