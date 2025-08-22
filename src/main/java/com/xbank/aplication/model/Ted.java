@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Ted extends Transfer {
-
+	private String tipo;
     public Ted() {}
 
     public Ted(Accounts source, Accounts destination, BigDecimal amount) {
@@ -22,6 +22,6 @@ public class Ted extends Transfer {
 
     @Override
     public String getType() {
-        return "TED";
+        return this.tipo;
     }
 }

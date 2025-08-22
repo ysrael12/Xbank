@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Pix extends Transfer {
-
+	private String tipo;
     public Pix() {}
 
     public Pix(Accounts source, Accounts destination, BigDecimal amount) {
@@ -22,6 +22,6 @@ public class Pix extends Transfer {
 
     @Override
     public String getType() {
-        return "PIX";
+        return this.tipo;
     }
 }

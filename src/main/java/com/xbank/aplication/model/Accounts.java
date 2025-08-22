@@ -14,12 +14,7 @@ import jakarta.persistence.JoinColumn;
 import java.util.List;
 import java.util.Random;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Getter
-@Setter
 public abstract class Accounts implements AccountDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,10 +57,12 @@ public abstract class Accounts implements AccountDetails {
 		this.creditCards.add(creditCard);
 	}
 	
+	@Override
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 	
+	@Override
 	public String getAccountNumber() {
 		return this.accountNumber;
 	}
@@ -114,7 +111,7 @@ public abstract class Accounts implements AccountDetails {
 		return this.creditCards;
 	}
 
-
+	@Override
 	public Long getId() {
 		return this.id;
 	}
@@ -124,45 +121,54 @@ public abstract class Accounts implements AccountDetails {
 		this.id = id;
 		
 	}
-
+	
+	@Override
 	public BigDecimal getBalance() {
 		return this.balance;
 
 	}
 	
+	@Override
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 	
+	@Override
 	public User getOwner() {
 		return this.owner;
 	}
 	
+	@Override
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 	
-	// Este é o método que você precisa
+	@Override
 	public String getAgency() {
 	    return this.agency;
 	}
 
-	// O setter, se você precisar
+	@Override
 	public void setAgency(String agency) {
 	    this.agency = agency;
 	}
 	
+	@Override
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
+	
+	@Override
 	public String getBankName() {
 		return this.bankName;
 	}
 	
+	@Override
 	public String getNomeCompleto(){
 		return owner.getName();
 	}
 
+	@Override
 	public void setNomeCompleto(String nome){
 		this.owner.setName(nome);
 	}
