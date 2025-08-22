@@ -17,16 +17,16 @@ public class User implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	protected Long id;
 
 	
-	private String name;
-	private String email;
-	private String password;
-	private String phone;
-	private String cpf;
+	protected String name;
+	protected String email;
+	protected String password;
+	protected String phone;
+	protected String cpf;
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Accounts> accounts;
+	protected List<Accounts> accounts;
 	
 	public User() {
 		// id will be set by MongoDB

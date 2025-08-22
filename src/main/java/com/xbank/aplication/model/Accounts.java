@@ -32,6 +32,7 @@ public abstract class Accounts implements AccountDetails {
 	public String agency;
 	public String bankName;
 	
+	
 	// Balance
 	protected BigDecimal balance = BigDecimal.ZERO;
 	
@@ -163,4 +164,11 @@ public abstract class Accounts implements AccountDetails {
 		return this.bankName;
 	}
 	
+	public String getNomeCompleto(){
+		return owner.getName();
+	}
+
+	public void setNomeCompleto(String nome){
+		this.owner.setName(nome);
+	}
 }

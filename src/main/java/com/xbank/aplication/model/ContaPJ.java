@@ -35,6 +35,10 @@ public class ContaPJ extends Accounts {
 		creditCard.setAccount(this);
 	}
 
+	public String getTipo(){
+        return "PJ";
+    }
+
 	@Override
 	public String toString() {
 		return "ContaPJ{" +
