@@ -15,12 +15,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/","/users", "/login", "/register", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login")
                         .usernameParameter("email")
-                        .defaultSuccessUrl("/accounts", true)
+                        .defaultSuccessUrl("/minha-conta", true)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")

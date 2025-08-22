@@ -18,6 +18,8 @@ public class ContaPfService {
     public ContaPF createContaPf(ContaPF conta, User user) {
         conta.generateAccountNumber();
         conta.generateAgency();
+        conta.setBankName("XBank");
+        conta.setCpf(user.getCPF());
 
         // Define o usuário como dono da conta
         conta.setOwner(user);
