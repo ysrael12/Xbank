@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class ContaPF extends Accounts {
     protected String cpf;
     protected String nomeCompleto;
-    protected String tipo = "PJ";
+    protected String tipo = "PF";
 
     public void setNomeCompleto(String nomeCompleto){
         this.nomeCompleto = nomeCompleto;
