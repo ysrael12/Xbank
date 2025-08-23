@@ -12,8 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.xbank.aplication.model.ContaPF;
-import com.xbank.aplication.model.Transfer;
+import com.xbank.aplication.model.*;
 import com.xbank.aplication.repositories.AccountRepository;
 import com.xbank.aplication.repositories.TransferRepository;
 
@@ -29,10 +28,9 @@ class TransferServiceTest {
     @InjectMocks
     private TransferService transferService;
 
+    // transferencia normal
     @Test
     void deveExecutarTransferenciaComSucesso() {
-
-        //cria contas com saldo suficiente
         ContaPF source = new ContaPF();
         source.setId(1L);
         source.setBalance(new BigDecimal("1000"));
@@ -43,25 +41,19 @@ class TransferServiceTest {
 
         BigDecimal amount = new BigDecimal("200");
 
-        // simula busca das contas no repositry
         when(accountRepository.findById(1L)).thenReturn(Optional.of(source));
         when(accountRepository.findById(2L)).thenReturn(Optional.of(destination));
 
-        //executa a transferencia
         transferService.executeTransfer(1L, 2L, amount);
 
-        // verifica se os saldos foram atualizados
         assertEquals(new BigDecimal("800"), source.getBalance());
         assertEquals(new BigDecimal("700"), destination.getBalance());
-
-        // verifica se a transferencia foi salva
         verify(transferRepository).save(any(Transfer.class));
     }
 
+    // saldo insuficiente
     @Test
     void deveLancarExcecaoQuandoSaldoInsuficiente() {
-
-        //cria conta com saldo insuficiente
         ContaPF source = new ContaPF();
         source.setId(1L);
         source.setBalance(new BigDecimal("100"));
@@ -72,13 +64,97 @@ class TransferServiceTest {
 
         BigDecimal amount = new BigDecimal("200");
 
-        // busca as contas
         when(accountRepository.findById(1L)).thenReturn(Optional.of(source));
         when(accountRepository.findById(2L)).thenReturn(Optional.of(destination));
 
-        // verifica se excecao e lancada ao tentar transferir valor maior que o saldo
         assertThrows(IllegalArgumentException.class, () -> {
             transferService.executeTransfer(1L, 2L, amount);
+        });
+    }
+
+    // pix vlaido
+    @Test
+    void deveExecutarPixComValorValido() {
+        ContaPF source = new ContaPF();
+        source.setBalance(new BigDecimal("1000"));
+
+        ContaPF destination = new ContaPF();
+        destination.setBalance(new BigDecimal("1300"));
+
+        BigDecimal amount = new BigDecimal("2000");
+
+        Pix pix = new Pix(source, destination, amount);
+        pix.setAmount(amount); // valida limite
+
+        assertEquals(new BigDecimal("2000"), pix.getAmount());
+    }
+
+    // pix invalido
+    @Test
+    void deveLancarExcecaoQuandoPixExcedeLimite() {
+        ContaPF source = new ContaPF();
+        ContaPF destination = new ContaPF();
+        BigDecimal amount = new BigDecimal("6043");
+
+        Pix pix = new Pix(source, destination, amount);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            pix.setAmount(amount);
+        });
+    }
+
+    // TED valido
+    @Test
+    void deveExecutarTedComValorValido() {
+        ContaPF source = new ContaPF();
+        ContaPF destination = new ContaPF();
+        BigDecimal amount = new BigDecimal("1500");
+
+        Ted ted = new Ted(source, destination, amount);
+        ted.setAmount(amount);
+
+        assertEquals(new BigDecimal("1500"), ted.getAmount());
+    }
+
+    // TED invalido
+    @Test
+    void deveLancarExcecaoQuandoTedAbaixoDoMinimo() {
+        ContaPF source = new ContaPF();
+        ContaPF destination = new ContaPF();
+        BigDecimal amount = new BigDecimal("800");
+
+        Ted ted = new Ted(source, destination, amount);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            ted.setAmount(amount);
+        });
+    }
+
+    // Bbleto sem destino
+    @Test
+    void deveLancarExcecaoAoDefinirDestinoEmBoleto() {
+        ContaPF source = new ContaPF();
+        ContaPF destination = new ContaPF();
+        BigDecimal amount = new BigDecimal("300");
+
+        Boleto boleto = new Boleto(source, amount);
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            boleto.setDestinationAccount(destination);
+        });
+    }
+
+    // deposito sem origem
+    @Test
+    void deveLancarExcecaoAoDefinirOrigemEmDeposito() {
+        ContaPF source = new ContaPF();
+        ContaPF destination = new ContaPF();
+        BigDecimal amount = new BigDecimal("500");
+
+        Deposito deposito = new Deposito(source, destination, amount);
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            deposito.setSourceAccount(source);
         });
     }
 }
