@@ -6,8 +6,7 @@ import jakarta.persistence.Entity;
 @Entity
 public class Pix extends Transfer {
 	private String tipo;
-    public Pix() {}
-
+  
     public Pix(Accounts source, Accounts destination, BigDecimal amount) {
         super(source, destination, amount);
     }

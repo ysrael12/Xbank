@@ -23,8 +23,6 @@ public class CreditCards implements CreditCardDetails {
 	// Correctly define the ManyToOne relationship to the Accounts entity.
 	// This tells Hibernate that many credit cards belong to one account.
 	@ManyToOne
-	// The @JoinColumn annotation specifies the foreign key column in this table.
-	// It will create a column named 'accounts_id' that holds the primary key of the Accounts table.
 	@JoinColumn(name = "accounts_id")
 	private Accounts ownerAccount;
 	private String cardNumber;

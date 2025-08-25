@@ -1,7 +1,7 @@
 package com.xbank.aplication.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,22 +18,19 @@ public class Transfer implements TransferDetails {
     @JoinColumn(name = "source_account_id")
     protected Accounts sourceAccount;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "destination_account_id")
 	protected Accounts destinationAccount;
 
     protected BigDecimal amount;
-    protected Date transferDate;
+    protected LocalDateTime transferDate;
 
-    public Transfer() {
-        this.transferDate = new Date();
-    }
-
+    
     public Transfer(Accounts source, Accounts destination, BigDecimal amount) {
         this.sourceAccount = source;
         this.destinationAccount = destination;
         this.amount = amount;
-        this.transferDate = new Date();
+        this.transferDate = LocalDateTime.now();
     }
 
     @Override
@@ -77,12 +74,12 @@ public class Transfer implements TransferDetails {
     }
 
     @Override
-    public Date getTransferDate() {
+    public LocalDateTime getTransferDate() {
         return this.transferDate;
     }
 
     @Override
-    public void setTransferDate(Date transferDate) {
+    public void setTransferDate(LocalDateTime transferDate) {
         this.transferDate = transferDate;
     }
     @Override

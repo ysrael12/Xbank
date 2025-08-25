@@ -1,7 +1,8 @@
 package com.xbank.aplication.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public interface TransferDetails {
     Long getId();
@@ -16,7 +17,7 @@ public interface TransferDetails {
     BigDecimal getAmount();
     void setAmount(BigDecimal amount);
 
-    Date getTransferDate();
-    void setTransferDate(Date transferDate);
+    LocalDateTime getTransferDate();
+    void setTransferDate(LocalDateTime transferDate);
     String getType();
 }

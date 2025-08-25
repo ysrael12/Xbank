@@ -9,6 +9,41 @@ Xbank é um sistema bancário web desenvolvido em Java com Spring Boot e Thymele
 - Gerenciamento de cartões de crédito
 - Interface web responsiva
 
+## Padrões de projeto / Arquitetura
+- MVC (Model-View-Controller)
+- Padrão factory para criação de objetos
+- Padrão Repository para acesso a dados
+- Padrão Service para lógica de negócio
+- Models para representar entidades
+- Repositórios para acesso a dados
+- Serviços para lógica de negócio
+- Controladores para gerenciar requisições HTTP
+- Templates Thymeleaf para renderização de views
+- Segurança com Spring Security
+- Banco de dados SQLite para armazenamento de dados
+
+
+## Requisitos do Projeto 
+- Pelo menos 1 teste usando JUnit (X)
+- Usar persistência de dados (X)
+- Usar Spring Boot (X)
+- Usar pelo menos 1 classe abstrata ou
+interface (X)
+- Usar pelo menos 1 padrão de projeto (X)
+
+
+
+## Guia Rápido
+- Acesse a aplicação via navegador em [http://localhost:8000](http://localhost:8000)
+- Faça login com suas credenciais ou cadastre-se para criar uma nova conta
+- crie uma conta pessoa física ou jurídica 
+- Navegue pela navbar para acessar diferentes funcionalidades
+- Com a conta criada, você pode fazer transferências, consultar saldo e extrato, e gerenciar seus cartões de crédito
+- Com sua conta você tem acesso ao seu perfil de conta onde você pode ver suas informações pessoais e de conta
+- Na seção de cartões, você pode adicionar, visualizar e gerenciar seus cartões de crédito vinculados à sua conta
+- Na seçao de transferências, você pode realizar transferências via Pix, TED, Boleto e Depósito
+- Para ver as listas de contas criadas você pode acessar o seguinte link [http://localhost:8000/admin/accounts](http://localhost:8000/admin/accounts)
+
 ## Tecnologias Utilizadas
 - Java 17+
 - Spring Boot

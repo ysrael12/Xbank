@@ -1,20 +1,17 @@
 package com.xbank.aplication.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+
 
 import jakarta.persistence.Entity;
 
 @Entity
 public class Deposito extends Transfer {
 	private String tipo;
-    public Deposito() {}
+   
 
     public Deposito(Accounts source, Accounts destination, BigDecimal amount) {
-        this.sourceAccount = source;
-        this.destinationAccount = destination;
-        this.amount = amount;
-        this.transferDate = new Date();
+    	super(source, destination, amount);
     }
     
 

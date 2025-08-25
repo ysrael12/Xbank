@@ -8,7 +8,7 @@ public class Boleto extends Transfer {
 	
 	private String tipo;
 	
-    public Boleto() {}
+    
 
     public Boleto(Accounts source, BigDecimal amount) {
         super(source, null, amount);

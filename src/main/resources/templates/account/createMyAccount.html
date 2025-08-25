@@ -106,6 +106,7 @@
       <p><strong>Agência:</strong> <span th:text="${conta.agency}"></span></p>
       <p><strong>Número da Conta:</strong> <span th:text="${conta.accountNumber}"></span></p>
       <p><strong>Saldo:</strong> R$ <span th:text="${conta.balance}"></span></p>
+	  <p><strong>Id da Conta(Usado para transferência):</strong>  <span th:text="${conta.id}"></span></p>
     </div>
 
     <form th:action="@{/minha-conta/depositar}" method="post">

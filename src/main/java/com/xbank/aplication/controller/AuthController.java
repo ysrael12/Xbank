@@ -33,7 +33,7 @@ public class AuthController {
             model.addAttribute("loginError", "Email or password invalid");
             return "auth/login";
         }
-        // Aqui você pode adicionar lógica de sessão se necessário
+        
         return "redirect:/index";
     }
 

@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 @Entity
 public class Ted extends Transfer {
 	private String tipo;
-    public Ted() {}
+   
 
     public Ted(Accounts source, Accounts destination, BigDecimal amount) {
         super(source, destination, amount);
