@@ -2,6 +2,10 @@
 
 Xbank é um sistema bancário web desenvolvido em Java com Spring Boot e Thymeleaf. Permite aos usuários gerenciar contas, realizar transferências, consultar saldo, extrato e gerenciar cartões de crédito.
 
+## Feito por 
+-  HUGO SANTOS DA PAIXÃO (UFS)
+-  YSRAEL DE JESUS SACRAMENTO (UFS)
+
 ## Funcionalidades
 - Cadastro e autenticação de usuários
 - Visualização de saldo e extrato da conta
