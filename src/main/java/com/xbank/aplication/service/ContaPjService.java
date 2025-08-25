@@ -22,8 +22,7 @@ public class ContaPjService {
 		//Pega o usuario logado e atribui como dono da conta
 		conta.setOwner(user);
 		//Seta o CNPJ e nome da empresa
-		;	
-		
+	
 		//Seta o saldo inicial da conta
 		conta.setBalance(BigDecimal.ZERO);
 		

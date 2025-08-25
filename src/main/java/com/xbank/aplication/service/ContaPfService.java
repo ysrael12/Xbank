@@ -59,13 +59,18 @@ public class ContaPfService {
     }
 
     public ContaPF withdraw(Long id, BigDecimal amount) {
-        ContaPF contaPf = findById(id);
-        if (contaPf != null) {
+    ContaPF contaPf = findById(id);
+    if (contaPf != null) {
+        if (contaPf.getBalance().compareTo(amount) >= 0) {
             contaPf.withdraw(amount);
             return contaPfRepository.save(contaPf);
+        } else {
+            throw new IllegalArgumentException("Saldo insuficiente para realizar o saque.");
         }
-        return null;
     }
+    return null;
+}
+
 
     public Iterable<ContaPF> findByCpf(String cpf) {
         return contaPfRepository.findByCpf(cpf);
