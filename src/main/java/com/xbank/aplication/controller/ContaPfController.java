@@ -33,7 +33,7 @@ public class ContaPfController {
     @PostMapping("/create")
     public String register(@ModelAttribute("contaPF") ContaPF conta, Principal principal) {
         User user = userService.findByEmail(principal.getName());
-        contaPfService.createContaPf(conta, user);
+        contaPfService.createContaPf(conta, user, user.getPassword());
         return "redirect:/login";
     }
 
@@ -50,7 +50,7 @@ public class ContaPfController {
     @PostMapping("/update")
     public String updateAccount(@ModelAttribute("contaPF") ContaPF conta, Principal principal) {
         User user = userService.findByEmail(principal.getName());
-        contaPfService.createContaPf(conta, user);
+        contaPfService.createContaPf(conta, user, user.getPassword());
         return "redirect:/accounts";
     }
 

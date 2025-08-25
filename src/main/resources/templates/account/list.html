@@ -57,11 +57,11 @@
 		            <!-- Dropdown menu -->
 		            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
 		                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-		                  <!--
+		                  
 						  <li>
 		                    <a href="/conta-pj/create" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pessoa jurídica</a>
 		                  </li>
-						  -->
+						 
 		                  <li>
 		                    <a href="/conta-pf/create" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pessoa física</a>
 		                  </li>
@@ -91,7 +91,6 @@
 						<th scope="col" class="px-6 py-3">Número da Conta</th>
 						<th scope="col" class="px-6 py-3">Agência</th>
 						<th scope="col" class="px-6 py-3">Saldo</th>
-						<th scope="col" class="px-6 py-3">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -101,10 +100,6 @@
 						<td th:text="${account.accountNumber}" class="px-6 py-4"></td>
 						<td th:text="${account.agency}" class="px-6 py-4"></td>
 						<td th:text="${#numbers.formatCurrency(account.balance)}" class="px-6 py-4"></td>
-						<td class="px-6 py-4">
-							<a th:href="@{'/accounts/edit/' + ${account.id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-							<a th:href="@{'/accounts/delete/' + ${account.id}}" onclick="return confirm('Tem certeza que deseja deletar?')" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Excluir</a>
-						</td>
 					</tr>
 				</tbody>
 			</table>

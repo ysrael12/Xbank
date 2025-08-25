@@ -14,7 +14,7 @@ public interface CreditCardDetails {
 	BigDecimal getCreditLimit();
 	String getCardType();
 	String getCvv();
-	Date getExpirationDate();
+	String getExpirationDate();
 	String getCardHolderName();
 	Accounts getOwnerAccount();
 	String getCardNumber();
@@ -26,9 +26,9 @@ public interface CreditCardDetails {
 	void setAvailableCredit(BigDecimal availableCredit2);
 	void setCreditLimit(BigDecimal creditLimit2);
 	void setCardType(String cardType2);
-	void setExpirationDate(Date expirationDate2);
-	void setCvv(String cvv2);
+	void setCvv();
 	void setCardHolderName(String cardHolderName2);
 	void setCardNumber(String cardNumber2);
+	void setExpirationDate();
 	
 }

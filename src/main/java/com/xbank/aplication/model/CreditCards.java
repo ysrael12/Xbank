@@ -1,6 +1,8 @@
 package com.xbank.aplication.model;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import java.util.Random;
 
 import jakarta.persistence.Entity;
@@ -27,7 +29,7 @@ public class CreditCards implements CreditCardDetails {
 	private Accounts ownerAccount;
 	private String cardNumber;
 	private String cardHolderName;
-	private Date expirationDate;
+	private String expirationDate;
 	private String cvv;
 	private String cardType; // Ex: Visa, MasterCard, Elo.
 	private BigDecimal creditLimit;
@@ -40,14 +42,11 @@ public class CreditCards implements CreditCardDetails {
 		
 	}
 	
-	public CreditCards(Accounts ownerAccount, String cardHolderName, Date expirationDate,
-			String cvv, String cardType, BigDecimal creditLimit, BigDecimal currentBalance,
+	public CreditCards(Accounts ownerAccount, String cardHolderName, BigDecimal creditLimit, BigDecimal currentBalance,
 			BigDecimal availableCredit, String password, boolean isActive) {
 		this.ownerAccount = ownerAccount;
 		this.cardHolderName = cardHolderName;
-		this.expirationDate = expirationDate;
-		this.cvv = cvv;
-		this.cardType = cardType;
+		this.cardType = "Visa";
 		this.creditLimit = creditLimit;
 		this.currentBalance = currentBalance;
 		this.availableCredit = availableCredit;
@@ -154,13 +153,22 @@ public class CreditCards implements CreditCardDetails {
 	}
 	
 	@Override
-	public void setExpirationDate(Date expirationDate2) {
-		this.expirationDate = expirationDate2;
+	public void setExpirationDate() {
+		LocalDate today = LocalDate.now();
+
+        // Adiciona 3 anos para definir a data de validade
+        LocalDate expirationDate = today.plusYears(3);
+
+        // Formata a data para o formato MM/yy para exibir no cartao
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        this.expirationDate = expirationDate.format(formatter);
 	}
 	
 	@Override
-	public void setCvv(String cvv2) {
-		this.cvv = cvv2;
+	public void setCvv() {
+		// Gerar um CVV aleatório de 3 dígitos
+		int cvvNumber = 100 + random.nextInt(900); // Gera um número entre 100 e 999
+		this.cvv = String.valueOf(cvvNumber);
 	}
 	
 	@Override
@@ -218,10 +226,7 @@ public class CreditCards implements CreditCardDetails {
 		return this.cardHolderName;
 	}
 	
-	@Override
-	public Date getExpirationDate() {
-		return this.expirationDate;
-	}
+	
 	
 	@Override
 	public String getCvv() {
@@ -252,6 +257,14 @@ public class CreditCards implements CreditCardDetails {
 	public boolean isActive() {
 		return this.isActive;
 	}
+
+	@Override
+	public String getExpirationDate() {
+		return this.expirationDate; 	
+				
+	}
+
+
 	
 	
 }

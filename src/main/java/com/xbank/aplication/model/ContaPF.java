@@ -1,6 +1,7 @@
 package com.xbank.aplication.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import jakarta.persistence.*;
 
@@ -35,13 +36,25 @@ public class ContaPF extends Accounts {
         this.cpf = cpf;
     }
 
-    public void addCreditCard(String cardHolderName, BigDecimal limit) {
+    public void addCreditCard(String cardHolderName, BigDecimal limit, String password) {
         CreditCards creditCard = new CreditCards();
         creditCard.setCardNumber();
         creditCard.setCardHolderName(cardHolderName);
         creditCard.setCreditLimit(limit);
-        this.getCreditCards().add(creditCard);
         creditCard.setAccount(this);
+        creditCard.setAvailableCredit(limit);
+        creditCard.setCurrentBalance(BigDecimal.ZERO);
+        creditCard.setActive(true);
+        // Define a data de expiração para 3 anos a partir de agora
+        Date date = new Date(10); // Ano, mês (0-11), dia
+        creditCard.setExpirationDate();
+        creditCard.setCvv();
+        creditCard.setPassword(password);
+        creditCard.setCardType("VISA");
+        
+        
+        this.getCreditCards().add(creditCard);
+        
     }
 
     public String getTipo(){

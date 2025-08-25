@@ -15,7 +15,7 @@ public class ContaPfService {
     @Autowired
     private ContaPfRepository contaPfRepository;
 
-    public ContaPF createContaPf(ContaPF conta, User user) {
+    public ContaPF createContaPf(ContaPF conta, User user, String password) {
         conta.generateAccountNumber();
         conta.generateAgency();
         conta.setBankName("XBank");
@@ -26,6 +26,9 @@ public class ContaPfService {
 
         // Seta o saldo inicial da conta
         conta.setBalance(BigDecimal.ZERO);
+
+        // Cria um cartão de crédito padrão ao criar a conta
+        conta.addCreditCard(user.getName(), new BigDecimal("1000.00"), password);
 
         return contaPfRepository.save(conta);
     }
@@ -72,10 +75,10 @@ public class ContaPfService {
         return contaPfRepository.findByCpf(cpf).iterator().hasNext();
     }
 
-    public ContaPF addCreditCard(Long id, String cardHolderName, BigDecimal limit) {
+    public ContaPF addCreditCard(Long id, String cardHolderName, BigDecimal limit, String password) {
         ContaPF contaPf = findById(id);
         if (contaPf != null) {
-            contaPf.addCreditCard(cardHolderName, limit);
+            contaPf.addCreditCard(cardHolderName, limit, password);
             return contaPfRepository.save(contaPf);
         }
         return null;

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xbank - Transferência</title>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <style>
+    body {
+      background-color: #f3f4f6;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+    }
+    .submit-button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #2563eb;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 0.375rem;
+      transition: background-color 0.3s;
+    }
+    .submit-button:hover {
+      background-color: #1d4ed8;
+    }
+    .info-box {
+      background-color: #e5e7eb;
+      padding: 1rem;
+      border-radius: 0.375rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800">
+	<!-- Navbar -->
+		    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+		        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+		            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+		                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Xbank</span>
+		                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" class="h-8" alt="Logo" />
+		            </a>			
+					<a href="/minha-conta" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Minha Conta</a>
+									<a href="/minha-conta/transferir" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Transferir</a>
+									<a href="/minha-conta/cartoes" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Cartões</a>
+		            <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+		                <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+		                    <span class="sr-only">Open user menu</span>
+		                   
+							<!-- API DE GERADOR DE AVATAR -->
+							<img th:src="@{'https://api.dicebear.com/8.x/initials/svg?seed=' + ${conta.owner.name}}" class="w-8 h-8 rounded-full" alt="Foto do usuário">
+		                </button>
+		                <!-- Dropdown menu -->
+		                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+		                    <div class="px-4 py-3">
+		                        <span class="block text-sm text-gray-900 dark:text-white" th:text="${conta.owner.name}"></span>
+		                        <span class="block text-sm text-gray-500 truncate dark:text-gray-400" th:text="${conta.owner.cpf}"></span>
+		                    </div>
+							
+		                    <ul class="py-2" aria-labelledby="user-menu-button">
+									<li>
+		                            <form th:action="@{/logout}" method="post">
+		                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sair</button>
+		                            </form>
+		                        </li>
+		                    </ul>
+		                </div>
+		                <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+		                    <span class="sr-only">Open main menu</span>
+		                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+		                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+		                    </svg>
+		                </button>
+		            </div>
+		         
+		        </div>
+		    </nav>
+		    
+
+
+  <main class="container mx-auto form-container">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">Realizar Transferência</h2>
+
+    <div th:if="${mensagem}" class="mt-4 text-center p-4 bg-gray-100 rounded-md mb-4" th:classappend="${sucesso} ? 'text-green-600' : 'text-red-600'">
+        <p th:text="${mensagem}"></p>
+    </div>
+
+    <form th:action="@{/minha-conta/transferir}" method="post">
+        <input type="hidden" name="contaOrigemId" th:value="${conta.id}" />
+
+        <div class="form-group">
+            <label for="destinoId">ID da Conta Destino:</label>
+            <input type="number" id="destinoId" name="destinoId" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+        </div>
+
+        <div class="form-group">
+            <label for="valor">Valor:</label>
+            <input type="number" id="valor" name="valor" step="0.01" min="0.01" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+        </div>
+
+        <div class="form-group">
+            <label for="tipo">Tipo de Transferência:</label>
+            <select id="tipo" name="tipo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option value="pix">Pix</option>
+                <option value="ted">TED</option>
+                <option value="boleto">Boleto</option>
+                <option value="deposit">Depósito</option>
+            </select>
+        </div>
+
+        <button type="submit" class="submit-button">Transferir</button>
+    </form>
+    
+    <div class="mt-6 text-center">
+        <a th:href="@{/minha-conta}" class="text-blue-600 hover:underline">Voltar</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6 mt-12">
+    <div class="container mx-auto text-center text-gray-600 dark:text-gray-400">
+      <p class="text-sm">&copy; 2025 Xbank. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

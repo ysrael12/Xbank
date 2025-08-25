@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Cartão - Xbank</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container-wrapper {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .card-display {
+            background: linear-gradient(to right, #2c3e50, #4a69bd);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        .card-display .chip {
+            width: 50px;
+            height: 40px;
+            background: url("https://img.icons8.com/color/48/000000/sim-card-chip.png");
+            background-size: cover;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+        }
+        .card-display .logo {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800">
+
+	<!-- Navbar -->
+		    <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+		        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+		            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+		                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Xbank</span>
+		                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" class="h-8" alt="Logo" />
+		            </a>			
+					<a href="/minha-conta" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Minha Conta</a>
+									<a href="/minha-conta/transferir" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Transferir</a>
+									<a href="/minha-conta/cartoes" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Cartões</a>
+		            <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+		                <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+		                    <span class="sr-only">Open user menu</span>
+		                   
+							<!-- API DE GERADOR DE AVATAR -->
+							<img th:src="@{'https://api.dicebear.com/8.x/initials/svg?seed=' + ${conta.owner.name}}" class="w-8 h-8 rounded-full" alt="Foto do usuário">
+		                </button>
+		                <!-- Dropdown menu -->
+		                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+		                    <div class="px-4 py-3">
+		                        <span class="block text-sm text-gray-900 dark:text-white" th:text="${conta.owner.name}"></span>
+		                        <span class="block text-sm text-gray-500 truncate dark:text-gray-400" th:text="${conta.owner.cpf}"></span>
+		                    </div>
+							
+		                    <ul class="py-2" aria-labelledby="user-menu-button">
+									<li>
+		                            <form th:action="@{/logout}" method="post">
+		                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sair</button>
+		                            </form>
+		                        </li>
+		                    </ul>
+		                </div>
+		                <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+		                    <span class="sr-only">Open main menu</span>
+		                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+		                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+		                    </svg>
+		                </button>
+		            </div>
+		         
+		        </div>
+		    </nav>
+		    
+    <main class="container-wrapper">
+        <div th:if="${creditCards != null and #lists.size(creditCards) > 0}">
+            <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Meus Cartões</h1>
+            <div th:each="creditCard : ${creditCards}" class="mb-8">
+                <div class="card-display">
+                    <div class="flex justify-between items-start">
+                        <div class="chip"></div>
+                        <img class="logo h-8" src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="Logo Xbank" />
+                    </div>
+                    <h2 class="text-2xl font-semibold mt-4 mb-2" th:text="${creditCard.cardNumber}"></h2>
+                    <div class="flex justify-between items-center text-sm mt-8">
+                        <div>
+                            <span class="block" th:text="${creditCard.cardHolderName}"></span>
+                            <span class="block">Titular</span>
+                        </div>
+                        <div>
+                            <span class="block" th:text="${creditCard.expirationDate}"></span>
+                            <span class="block">Válido até</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-lg font-bold text-gray-900 dark:text-white">Limite Disponível:</p>
+                    <p class="text-2xl font-extrabold text-blue-600" th:text="${#numbers.formatCurrency(creditCard.availableCredit)}"></p>
+                </div>
+            </div>
+        </div>
+        <div th:if="${creditCards == null or #lists.isEmpty(creditCards)}" class="text-center p-8 bg-gray-100 rounded-lg">
+            <p class="text-gray-600">Você ainda não tem um cartão de crédito. <a href="#" class="text-blue-600 hover:underline">Solicite um agora!</a></p>
+        </div>
+        <div th:if="${mensagem}" class="mt-4 text-center text-green-600 font-semibold">
+            <p th:text="${mensagem}"></p>
+        </div>
+        <div class="mt-8">
+            <h2 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Adicionar novo cartão</h2>
+            <form th:action="@{/minha-conta/cartoes/adicionar}" method="post" class="space-y-4">
+                <div>
+                    <label for="cardHolderName" class="block mb-1">Nome do Titular</label>
+                    <input type="text" id="cardHolderName" name="cardHolderName" required class="w-full p-2 border rounded"/>
+                </div>
+                <div>
+                    <label for="limit" class="block mb-1">Limite do Cartão (R$)</label>
+                    <input type="number" id="limit" name="limit" step="0.01" min="0" required class="w-full p-2 border rounded"/>
+                </div>
+                <div>
+                    <label for="password" class="block mb-1">Senha do Cartão</label>
+                    <input type="password" id="password" name="password" required class="w-full p-2 border rounded"/>
+                </div>
+                <button type="submit" class="submit-button">Adicionar Cartão</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6 mt-12">
+        <div class="container mx-auto text-center text-gray-600 dark:text-gray-400">
+            <p class="text-sm">&copy; 2025 Xbank. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
