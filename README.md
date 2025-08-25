@@ -38,6 +38,7 @@ Xbank é um sistema bancário web desenvolvido em Java com Spring Boot e Thymele
    mvn spring-boot:run
    ```
    O sistema estará disponível em [http://localhost:8000](http://localhost:8000)
+   ### HTTP
 
 ## Configuração
 - O arquivo de configuração está em `src/main/resources/application.properties`.
