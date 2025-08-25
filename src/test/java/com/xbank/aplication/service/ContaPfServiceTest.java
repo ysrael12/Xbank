@@ -46,7 +46,7 @@ public class ContaPfServiceTest {
 
         when(contaPfRepository.save(any(ContaPF.class))).thenReturn(contaSaved);
 
-        ContaPF result = contaPfService.createContaPf(conta, user);
+        ContaPF result = contaPfService.createContaPf(conta, user,"teste");
 
         // verifica se os dados retornados estao certos
         assertEquals(1L, result.getId());
